@@ -27,7 +27,9 @@ function Home({ ctas }: HomeProps) {
       <ResponsiveAppBar />
       <Box marginTop={3}>
         {
+          // @ts-ignore
           ctas.map((cta: Cta) => (
+          // @ts-ignore   
            <ClickableCard key={cta.id} email={cta.email} password={cta.password} id={cta.id} />
           ))
         }

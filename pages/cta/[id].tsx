@@ -63,12 +63,15 @@ function Id() {
 
   const handleDelete = async () => {
     try {
+      // @ts-ignore
       const documentRef = doc(db, "cta", id);
       await deleteDoc(documentRef);
       router.push("/");
       handleClose();
       console.log("deleted");
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -82,6 +85,7 @@ function Id() {
         info.id = doc.id;
         return info;
       });
+      // @ts-ignore
       setData(docs.filter((doc) => doc.id === id));
       setLoad(false);
     })();
@@ -99,6 +103,7 @@ function Id() {
         justifyContent="center"
         sx={{ minHeight: "85vh" }}
       >
+        {/* @ts-ignore */}
         {data?.map((cta) => (
           <Card key={cta.id} sx={{ maxWidth: 500 }}>
             <CardMedia

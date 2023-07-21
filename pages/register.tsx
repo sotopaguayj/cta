@@ -39,6 +39,8 @@ export default function Register() {
   });
 
   const form = useForm<formValues>({
+    // @ts-ignore
+
     resolver: yupResolver(userSchema),
   });
   const { register, handleSubmit, formState } = form;
@@ -47,8 +49,11 @@ export default function Register() {
   const handleData = async (data: formValues) => {
     setIsLoading(true);
     const imagen = data.image[0];
+    // @ts-ignore
+
     const imagenName = new Date().getTime() + imagen.name;
     const storageRef = ref(storage, imagenName);
+    // @ts-ignore
     const upload = uploadBytesResumable(storageRef, imagen);
 
     const downloadURL = await new Promise<string>((resolve, reject) => {
@@ -56,7 +61,7 @@ export default function Register() {
         upload.on("state_changed", (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            setPro(progress);
+          setPro(progress);
           if (progress === 100) {
             resolve(getDownloadURL(upload.snapshot.ref));
           }
@@ -127,7 +132,15 @@ export default function Register() {
               variant="contained"
               color="primary"
             >
-              {isLoading ? <CircularProgress variant="determinate" value={pro} color="inherit" /> : "Register"}
+              {isLoading ? (
+                <CircularProgress
+                  variant="determinate"
+                  value={pro}
+                  color="inherit"
+                />
+              ) : (
+                "Register"
+              )}
             </Button>
           </Stack>
         </form>

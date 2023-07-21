@@ -52,6 +52,7 @@ export default function Id() {
 
   const handleData = async (datax: formValues) => {
     try {
+      // @ts-ignore
       const theDoc = doc(db, "cta", id);
       await updateDoc(theDoc, datax);
       Swal.fire({
@@ -81,6 +82,7 @@ export default function Id() {
         return info;
       });
       const filtered = docs.filter((doc) => doc.id === id);
+      // @ts-ignore
       setData(filtered[0]);
       setValue("email", filtered[0]?.email);
       setValue("password", filtered[0]?.password);
