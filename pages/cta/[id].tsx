@@ -58,12 +58,13 @@ function Id() {
   const id = router.query.id;
 
   const handleEdit = () => {
-    router.push(`/edit/${id}`)
+    router.push(`/edit/${id}`);
   };
 
   const handleDelete = async () => {
     try {
-      await deleteDoc(doc(db, "cta", id));
+      const documentRef = doc(db, "cta", id);
+      await deleteDoc(documentRef);
       router.push("/");
       handleClose();
       console.log("deleted");
@@ -84,9 +85,8 @@ function Id() {
       setData(docs.filter((doc) => doc.id === id));
       setLoad(false);
     })();
-
   }, [db, id]);
-  
+
   return (
     <>
       <ResponsiveAppBar />
